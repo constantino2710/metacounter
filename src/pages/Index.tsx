@@ -1,7 +1,7 @@
-import { SalesPlatform } from '../components/SalesPlatform';
+import { MetaMasterPlatform } from '../components/MetaMasterPlatform';
 
 const Index = () => {
-  return <SalesPlatform />;
+  return <MetaMasterPlatform />;
 };
 
 export default Index;
