@@ -1,7 +1,7 @@
-import { MetaMasterPlatform } from '../components/MetaMasterPlatform';
+import { HierarchicalPlatform } from '../components/HierarchicalPlatform';
 
 const Index = () => {
-  return <MetaMasterPlatform />;
+  return <HierarchicalPlatform />;
 };
 
 export default Index;
