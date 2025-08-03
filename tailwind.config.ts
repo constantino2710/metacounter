@@ -61,6 +61,16 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				performance: {
+					below: 'hsl(var(--performance-below))',
+					'below-foreground': 'hsl(var(--performance-below-fg))',
+					met: 'hsl(var(--performance-met))',
+					'met-foreground': 'hsl(var(--performance-met-fg))',
+					super: 'hsl(var(--performance-super))',
+					'super-foreground': 'hsl(var(--performance-super-fg))',
+					neutral: 'hsl(var(--performance-neutral))',
+					'neutral-foreground': 'hsl(var(--performance-neutral-fg))'
 				}
 			},
 			borderRadius: {
