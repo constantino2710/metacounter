@@ -41,16 +41,19 @@ export function EditableCell({
   };
 
   const getPerformanceColor = (): string => {
-    if (!metaDia) return 'bg-gray-100 text-gray-600';
+    if (!metaDia || metaDia === 0) return 'bg-gray-100 text-gray-600 border border-gray-200';
     
-    if (value >= (superMetaDia || metaDia * 1.3)) {
-      return 'bg-blue-500 text-white';
+    // Supermeta é definida como 30% a mais que a meta
+    const calculatedSuperMeta = superMetaDia || (metaDia * 1.3);
+    
+    if (value >= calculatedSuperMeta) {
+      return 'bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-md border border-blue-400';
     } else if (value >= metaDia) {
-      return 'bg-green-500 text-white';
+      return 'bg-gradient-to-br from-green-500 to-green-600 text-white shadow-md border border-green-400';
     } else if (value > 0) {
-      return 'bg-red-500 text-white';
+      return 'bg-gradient-to-br from-red-500 to-red-600 text-white shadow-md border border-red-400';
     } else {
-      return 'bg-gray-100 text-gray-600';
+      return 'bg-gray-100 text-gray-600 border border-gray-200';
     }
   };
 
@@ -85,12 +88,12 @@ export function EditableCell({
 
   return (
     <div 
-      className={`p-2 text-center border-r border-border font-bold text-xs ${cellColorClass} group cursor-pointer relative`}
+      className={`p-3 text-center border-r border-slate-200 font-bold text-sm ${cellColorClass} group cursor-pointer relative transition-all duration-200 hover:scale-105`}
       onClick={() => isEditable && setIsEditing(true)}
     >
-      <span>{value > 0 ? Math.round(value).toString() : value === 0 ? '0' : 'F'}</span>
+      <span>{value > 0 ? Math.round(value).toString() : value === 0 ? '0' : '-'}</span>
       {isEditable && (
-        <Edit2 size={10} className="absolute top-1 right-1 opacity-0 group-hover:opacity-50 text-current" />
+        <Edit2 size={12} className="absolute top-1 right-1 opacity-0 group-hover:opacity-70 text-current" />
       )}
     </div>
   );

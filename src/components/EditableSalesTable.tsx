@@ -39,7 +39,15 @@ export function EditableSalesTable({
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
   
   // Dias do mês atual
-  const currentDays = Array.from({ length: 10 }, (_, i) => (22 + i).toString());
+  const getCurrentMonthDays = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    return Array.from({ length: daysInMonth }, (_, i) => (i + 1).toString());
+  };
+  
+  const currentDays = getCurrentMonthDays();
   
   const toggleGroup = (groupId: string) => {
     const newExpanded = new Set(expandedGroups);
@@ -66,10 +74,11 @@ export function EditableSalesTable({
       <div key={row.id}>
         {/* Linha principal */}
         <div className={`
-          grid grid-cols-[300px_80px_100px_80px_100px_repeat(10,50px)_80px_50px] 
-          border-b border-border text-xs
-          ${row.isGroup ? 'bg-slate-50 font-semibold' : 'bg-white'}
+          grid grid-cols-[300px_100px_120px_100px_120px_repeat(${currentDays.length},60px)_100px_60px] 
+          border-b border-slate-200 text-sm shadow-sm
+          ${row.isGroup ? 'bg-gradient-to-r from-indigo-50 to-purple-50 font-semibold' : 'bg-white hover:bg-slate-50'}
           ${index % 2 === 0 ? '' : 'bg-slate-25'}
+          transition-colors duration-200
         `}>
           {/* Nome da filial/funcionário */}
           <div 
@@ -97,38 +106,38 @@ export function EditableSalesTable({
           </div>
 
           {/* Meta do Mês */}
-          <div className="border-r border-border bg-slate-100">
+          <div className="border-r border-slate-200 bg-gradient-to-br from-blue-50 to-blue-100">
             <EditableCell
               value={row.metaMes || 0}
               onSave={(value) => onUpdateMeta(row.id, 'metaMes', value)}
-              colorClass="bg-slate-100 text-gray-800 font-semibold"
+              colorClass="bg-gradient-to-br from-blue-50 to-blue-100 text-blue-800 font-semibold border-0"
             />
           </div>
 
           {/* Super Meta Mês */}
-          <div className="border-r border-border bg-slate-100">
+          <div className="border-r border-slate-200 bg-gradient-to-br from-purple-50 to-purple-100">
             <EditableCell
               value={row.superMetaMes || 0}
               onSave={(value) => onUpdateMeta(row.id, 'superMetaMes', value)}
-              colorClass="bg-slate-100 text-gray-800 font-semibold"
+              colorClass="bg-gradient-to-br from-purple-50 to-purple-100 text-purple-800 font-semibold border-0"
             />
           </div>
 
           {/* Meta Dia */}
-          <div className="border-r border-border bg-slate-200">
+          <div className="border-r border-slate-200 bg-gradient-to-br from-emerald-50 to-emerald-100">
             <EditableCell
               value={row.metaDia || 0}
               onSave={(value) => onUpdateMeta(row.id, 'metaDia', value)}
-              colorClass="bg-slate-200 text-gray-800 font-semibold"
+              colorClass="bg-gradient-to-br from-emerald-50 to-emerald-100 text-emerald-800 font-semibold border-0"
             />
           </div>
 
           {/* Super Meta Dia */}
-          <div className="border-r border-border bg-slate-200">
+          <div className="border-r border-slate-200 bg-gradient-to-br from-orange-50 to-orange-100">
             <EditableCell
               value={row.superMetaDia || 0}
               onSave={(value) => onUpdateMeta(row.id, 'superMetaDia', value)}
-              colorClass="bg-slate-200 text-gray-800 font-semibold"
+              colorClass="bg-gradient-to-br from-orange-50 to-orange-100 text-orange-800 font-semibold border-0"
             />
           </div>
 
@@ -144,7 +153,7 @@ export function EditableSalesTable({
           ))}
 
           {/* Total */}
-          <div className="p-3 text-center bg-blue-500 text-white font-bold border-r border-border">
+          <div className="p-3 text-center bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold border-r border-slate-200 rounded-sm">
             {Math.round(row.total)}
           </div>
 
@@ -183,39 +192,38 @@ export function EditableSalesTable({
   return (
     <div className="bg-white overflow-x-auto">
       {/* Cabeçalho da tabela */}
-      <div className="grid grid-cols-[300px_80px_100px_80px_100px_repeat(10,50px)_80px_50px] bg-slate-700 text-white text-xs font-semibold">
-        <div className="p-3 border-r border-slate-600">
+      <div className={`grid grid-cols-[300px_100px_120px_100px_120px_repeat(${currentDays.length},60px)_100px_60px] bg-gradient-to-r from-slate-700 to-slate-800 text-white text-sm font-semibold shadow-lg`}>
+        <div className="p-4 border-r border-slate-600">
           {getHeaderTitle()}
         </div>
-        <div className="p-3 text-center border-r border-slate-600">META MÊS</div>
-        <div className="p-3 text-center border-r border-slate-600">SUPER META MÊS</div>
-        <div className="p-3 text-center border-r border-slate-600">META DIA</div>
-        <div className="p-3 text-center border-r border-slate-600">SUPER META DIA</div>
+        <div className="p-4 text-center border-r border-slate-600">META MÊS</div>
+        <div className="p-4 text-center border-r border-slate-600">SUPER META MÊS</div>
+        <div className="p-4 text-center border-r border-slate-600">META DIA</div>
+        <div className="p-4 text-center border-r border-slate-600">SUPER META DIA</div>
         {currentDays.map(day => (
-          <div key={day} className="p-2 text-center border-r border-slate-600">{day}</div>
+          <div key={day} className="p-3 text-center border-r border-slate-600 font-bold">{day}</div>
         ))}
-        <div className="p-3 text-center border-r border-slate-600">TOTAL</div>
-        <div className="p-2 text-center">AÇÕES</div>
+        <div className="p-4 text-center border-r border-slate-600">TOTAL</div>
+        <div className="p-3 text-center">AÇÕES</div>
       </div>
 
       {/* Subheader com categorias */}
-      <div className="grid grid-cols-[300px_80px_100px_80px_100px_repeat(10,50px)_80px_50px] bg-slate-600 text-white text-xs">
-        <div className="p-2 border-r border-slate-500">PRODUTOS</div>
-        <div className="p-2 text-center border-r border-slate-500">EDITAR</div>
-        <div className="p-2 text-center border-r border-slate-500">EDITAR</div>
-        <div className="p-2 text-center border-r border-slate-500">TER</div>
-        <div className="p-2 text-center border-r border-slate-500">QUA</div>
-        <div className="p-2 text-center border-r border-slate-500">QUI</div>
-        <div className="p-2 text-center border-r border-slate-500">SEX</div>
-        <div className="p-2 text-center border-r border-slate-500">SÁB</div>
-        <div className="p-2 text-center border-r border-slate-500">DOM</div>
-        <div className="p-2 text-center border-r border-slate-500">SEG</div>
-        <div className="p-2 text-center border-r border-slate-500">TER</div>
-        <div className="p-2 text-center border-r border-slate-500">QUA</div>
-        <div className="p-2 text-center border-r border-slate-500">QUI</div>
-        <div className="p-2 text-center border-r border-slate-500">PROJ.</div>
-        <div className="p-2 text-center border-r border-slate-500">TOTAL</div>
-        <div className="p-2 text-center"></div>
+      <div className={`grid grid-cols-[300px_100px_120px_100px_120px_repeat(${currentDays.length},60px)_100px_60px] bg-gradient-to-r from-slate-600 to-slate-700 text-white text-xs shadow-md`}>
+        <div className="p-3 border-r border-slate-500">NOME</div>
+        <div className="p-3 text-center border-r border-slate-500">VALOR</div>
+        <div className="p-3 text-center border-r border-slate-500">VALOR</div>
+        <div className="p-3 text-center border-r border-slate-500">VALOR</div>
+        <div className="p-3 text-center border-r border-slate-500">VALOR</div>
+        {currentDays.map((day, index) => {
+          const dayNames = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
+          const date = new Date(new Date().getFullYear(), new Date().getMonth(), parseInt(day));
+          const dayName = dayNames[date.getDay()];
+          return (
+            <div key={day} className="p-2 text-center border-r border-slate-500 text-xs">{dayName}</div>
+          );
+        })}
+        <div className="p-3 text-center border-r border-slate-500">SOMA</div>
+        <div className="p-3 text-center"></div>
       </div>
 
       {/* Linhas de dados */}
