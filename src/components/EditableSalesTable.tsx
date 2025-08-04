@@ -188,40 +188,42 @@ export function EditableSalesTable({
   };
 
   return (
-    <div className="bg-white overflow-x-auto border border-gray-200 rounded-lg shadow-sm">
-      {/* Cabeçalho da tabela */}
-      <div className="grid bg-slate-700 text-white text-xs font-semibold" style={{ gridTemplateColumns: `300px 80px 100px 80px 100px repeat(${currentDays.length}, 50px) 80px 50px` }}>
-        <div className="p-3 border-r border-slate-600">
-          {getHeaderTitle()}
+    <div className="w-full overflow-x-auto border border-gray-200 rounded-lg shadow-sm">
+      <div className="min-w-max bg-white">
+        {/* Cabeçalho da tabela */}
+        <div className="grid bg-slate-700 text-white text-xs font-semibold" style={{ gridTemplateColumns: `300px 80px 100px 80px 100px repeat(${currentDays.length}, 50px) 80px 50px` }}>
+          <div className="p-3 border-r border-slate-600">
+            {getHeaderTitle()}
+          </div>
+          <div className="p-3 text-center border-r border-slate-600">META MÊS</div>
+          <div className="p-3 text-center border-r border-slate-600">SUPER META MÊS</div>
+          <div className="p-3 text-center border-r border-slate-600">META DIA</div>
+          <div className="p-3 text-center border-r border-slate-600">SUPER META DIA</div>
+          {currentDays.map(day => (
+            <div key={day} className="p-2 text-center border-r border-slate-600">{day}</div>
+          ))}
+          <div className="p-3 text-center border-r border-slate-600">TOTAL</div>
+          <div className="p-2 text-center">AÇÕES</div>
         </div>
-        <div className="p-3 text-center border-r border-slate-600">META MÊS</div>
-        <div className="p-3 text-center border-r border-slate-600">SUPER META MÊS</div>
-        <div className="p-3 text-center border-r border-slate-600">META DIA</div>
-        <div className="p-3 text-center border-r border-slate-600">SUPER META DIA</div>
-        {currentDays.map(day => (
-          <div key={day} className="p-2 text-center border-r border-slate-600">{day}</div>
-        ))}
-        <div className="p-3 text-center border-r border-slate-600">TOTAL</div>
-        <div className="p-2 text-center">AÇÕES</div>
-      </div>
 
-      {/* Subheader com categorias */}
-      <div className="grid bg-slate-600 text-white text-xs" style={{ gridTemplateColumns: `300px 80px 100px 80px 100px repeat(${currentDays.length}, 50px) 80px 50px` }}>
-        <div className="p-2 border-r border-slate-500">PRODUTOS</div>
-        <div className="p-2 text-center border-r border-slate-500">EDITAR</div>
-        <div className="p-2 text-center border-r border-slate-500">EDITAR</div>
-        <div className="p-2 text-center border-r border-slate-500">EDITAR</div>
-        <div className="p-2 text-center border-r border-slate-500">EDITAR</div>
-        {currentDays.map(day => (
-          <div key={day} className="p-2 text-center border-r border-slate-500">{day}</div>
-        ))}
-        <div className="p-2 text-center border-r border-slate-500">TOTAL</div>
-        <div className="p-2 text-center"></div>
-      </div>
+        {/* Subheader com categorias */}
+        <div className="grid bg-slate-600 text-white text-xs" style={{ gridTemplateColumns: `300px 80px 100px 80px 100px repeat(${currentDays.length}, 50px) 80px 50px` }}>
+          <div className="p-2 border-r border-slate-500">PRODUTOS</div>
+          <div className="p-2 text-center border-r border-slate-500">EDITAR</div>
+          <div className="p-2 text-center border-r border-slate-500">EDITAR</div>
+          <div className="p-2 text-center border-r border-slate-500">EDITAR</div>
+          <div className="p-2 text-center border-r border-slate-500">EDITAR</div>
+          {currentDays.map(day => (
+            <div key={day} className="p-2 text-center border-r border-slate-500">{day}</div>
+          ))}
+          <div className="p-2 text-center border-r border-slate-500">TOTAL</div>
+          <div className="p-2 text-center"></div>
+        </div>
 
-      {/* Linhas de dados */}
-      <div>
-        {data.map((row, index) => renderRow(row, index))}
+        {/* Linhas de dados */}
+        <div>
+          {data.map((row, index) => renderRow(row, index))}
+        </div>
       </div>
     </div>
   );
